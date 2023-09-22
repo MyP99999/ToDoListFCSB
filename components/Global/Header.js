@@ -9,7 +9,7 @@ const Header = async () => {
     const session = await getServerSession(authOptions)
 
     return (
-        <header className='m-4 flex gap-4'>
+        <header className='h-16 flex justify-center items-center gap-4 bg-[#050214] border-b-2 text-white'>
             <Link className='' href='/'>Home</Link>
             <Link href='/protected/client'>Protected Client</Link>
             <Link href='/protected/server'>Protected Server</Link>

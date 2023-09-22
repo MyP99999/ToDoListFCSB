@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
       <body>
         <Provider>
           <Header />
-          <main className='m-48'>
+          <main>
             {children}
           </main>
         </Provider>
