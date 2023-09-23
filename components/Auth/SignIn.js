@@ -27,12 +27,12 @@ const SignIn = ({ callbackUrl }) => {
   return (
     <div className="body-bg-image flex items-center justify-center" style={{ minHeight: 'calc(100vh - 64px)' }}>
 
-      <div className="rainbow p-6 font-poppins text-[#FFFFFF] rounded-md">
+      <div className="rainbow p-6 font-poppins min-w-[400px] min-h-[700px] text-[#FFFFFF] rounded-md">
         <div className="z-3">
 
-          <h2 className="text-2xl font-semibold">Sing In</h2>
+          <h2 className="text-2xl font-semibold text-center">Sing In</h2>
 
-          <div className="flex flex-col justify-center text-[16px] gap-2 mt-4 font-semibold">
+          <div className="flex flex-col justify-center items-center text-[16px] gap-2 mt-4 font-semibold">
             <h5>If you don't have an account</h5>
             <h5>You can <Link href='/signup' className="text-[#C10C99] font-bold hover:text-[#9C0C84] focus:outline-none">Register here!</Link></h5>
           </div>
