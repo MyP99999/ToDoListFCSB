@@ -75,10 +75,6 @@ const SignUp = () => {
                     <Button value='Sign Up' className="bg-[#C10C99] rounded-xl p-2 mt-6 mb-4 hover:bg-[#9C0C84] focus:outline-none" />
                 </Form>
 
-
-
-
-
                 <div className="flex flex-col items-center justify-center gap-2">
                     <h5 className="text-[16px] font-thin">or continue with</h5>
                     <Image
@@ -93,19 +89,6 @@ const SignUp = () => {
             </div>
         </div>
 
-        // <div>
-        //     <h2>Sign Up With NextAuth</h2>
-        //     <Form action={handleSignUpCredentials} className='my-12' >
-        //         <input type="text" name="name" placeholder="Name" required />
-        //         <input type="email" name="email" placeholder="Email" required />
-        //         <input type="password" name="password" placeholder="Password" required />
-        //         <Button value='Register' />
-        //     </Form>
-
-        //     <div className="my-12 bg-gray-200 border-2 border-black">
-        //         <Link href='/signin'>Sign In</Link>
-        //     </div>
-        // </div>
     )
 }
 
