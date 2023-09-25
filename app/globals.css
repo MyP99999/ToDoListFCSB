@@ -21,6 +21,7 @@ input[data-autocompleted] {
 /* In your CSS file or a <style> block in your HTML */
 .body-bg-image {
   z-index: 0;
+  background-color: #050214;
   background-image: url('/bgcode.jpg'); /* Adjust the path to your image */
   background-size: 140% 140%; /* Zoomed in, covers the entire element */
   background-repeat: no-repeat; /* No repeating of the background image */
@@ -78,4 +79,37 @@ input[data-autocompleted] {
   }
 }
 
+/* Your existing styles */
 
+.typewriter-text {
+  font-size: 2em;
+  letter-spacing: 2px;
+  font-family: monospace;
+  color: white;
+  white-space: wrap;
+  overflow: hidden;
+  position: relative;
+}
+
+.typewriter-text::before {
+  content: 'Do you need a site for your business? Here I am! I can make any website you need!';
+  border-right: 2px solid;
+  position: absolute;
+  white-space: wrap;
+  top: 0;
+  right: 0;
+  height: 100%;
+  animation: typing 4s steps(20), cursor .5s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes cursor {
+  50% {
+    border-color: transparent;
+  }
+}
