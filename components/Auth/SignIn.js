@@ -25,7 +25,7 @@ const SignIn = ({ callbackUrl }) => {
 
 
   return (
-    <div className="body-bg-image flex items-center justify-center" style={{ minHeight: 'calc(100vh - 64px)' }}>
+    <div className="body-bg-image flex items-center justify-center" style={{ minHeight: 'calc(100vh)' }}>
 
       <div className="rainbow p-6 font-poppins min-w-[400px] min-h-[700px] text-[#FFFFFF] rounded-md">
         <div className="z-3">

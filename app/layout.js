@@ -12,8 +12,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Provider>
-          <Header />
-          <main>
+          <main className='relative'> 
+            <Header />
             {children}
           </main>
         </Provider>

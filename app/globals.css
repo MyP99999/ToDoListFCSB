@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
 img {
   object-fit: cover;
 }
@@ -30,6 +35,7 @@ input[data-autocompleted] {
 
 *, *::before, *::after {
   box-sizing: border-box;
+  font-family: 'popins';
 }
 
 @keyframes rotate {
@@ -112,4 +118,17 @@ input[data-autocompleted] {
   50% {
     border-color: transparent;
   }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
 }

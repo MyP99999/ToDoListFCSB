@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -7,7 +7,7 @@ import SignOut from "../Auth/SignOut";
 
 const links = [
     { id: 1, title: "Home", url: "/" },
-    { id: 2, title: "Examples", url: "/examples" },
+    { id: 2, title: "Technologies", url: "#technologies" },
     { id: 3, title: "Contact", url: "/contact" },
 ];
 
@@ -15,6 +15,18 @@ const Menu = () => {
     const [open, setOpen] = useState(false);
 
     const { data: session } = useSession();
+
+    useEffect(() => {
+        if (open) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [open]);
 
     return (
         <div>
@@ -25,7 +37,7 @@ const Menu = () => {
                 style={{
                     position: "fixed",
                     top: "20px",
-                    right: "20px",
+                    right: "25px",
                     zIndex: "1000",
                 }}
             >
@@ -47,12 +59,13 @@ const Menu = () => {
                         <>
                             <path d="M4 6h16M4 12h16M4 18h16" />
                         </>
-                    )}                </svg>
+                    )}
+                </svg>
             </div>
 
             {/* Menu */}
             {open && (
-                <div className="bg-[#050214] text-white font-poppins absolute left-0 top-0 w-full h-full flex flex-col gap-8 items-center justify-center text-3xl z-10">
+                <div className="bg-[#050214] text-white font-poppins fixed inset-0 flex flex-col gap-8 items-center justify-center text-3xl z-10">
                     {links.map((item) => (
                         <Link
                             href={item.url}
@@ -63,7 +76,7 @@ const Menu = () => {
                             {item.title}
                         </Link>
                     ))}
-                    
+
                     {!session ? (
                         <Link onClick={() => setOpen(false)} href="/signin">
                             SignIn
