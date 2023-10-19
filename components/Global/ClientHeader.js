@@ -4,9 +4,12 @@ import Link from 'next/link';
 import SignOut from '../Auth/SignOut';
 import Menu from './Menu';
 import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation'
+import Image from 'next/image';
 
 const ClientHeader = ({ session }) => {
     const router = useRouter(); // initialize useRouter
+    const pathname = usePathname()
 
     const handleHomeClick = useCallback(() => {
         const headerHeight = document.querySelector('header').offsetHeight; // Adjust the selector if necessary
@@ -14,7 +17,7 @@ const ClientHeader = ({ session }) => {
     }, []);
 
     const renderHomeButton = () => {
-        if (router.pathname === '/') {
+        if (pathname === '/') {
             // If on the home page, use a div with onClick to scroll to top
             return (
                 <a
@@ -22,16 +25,17 @@ const ClientHeader = ({ session }) => {
                         e.preventDefault(); // Prevent the default link click action
                         handleHomeClick();
                     }}
-                    className="cursor-pointer text-3xl font-poppins font-medium text-white hover:scale-105 duration-200"
+                    className="cursor-pointer flex text-3xl font-poppins font-medium text-white hover:scale-105 duration-200"
                 >
-                    MyProSiteBuilder
+                    FCSB
                 </a>
             );
         } else {
             // Otherwise, use a Link component to navigate to the home page
             return (
-                <Link href="/" className="cursor-pointer text-3xl font-poppins font-medium text-white hover:scale-105 duration-200">
-                    MyProSiteBuilder
+                <Link href="/" className="flex items-center cursor-pointer text-yellow-400 text-3xl font-poppins font-medium hover:scale-105 duration-200">
+                    <Image className='mb-1' src="/fcsb.png" alt="FCSB Logo" width={50} height={50} />
+                    FC FCSB SA
                 </Link>
             );
         }
@@ -47,18 +51,20 @@ const ClientHeader = ({ session }) => {
             </div>
 
             <nav className="hidden md:flex space-x-4">
-                <Link href="#technologies" className='px-4 cursor-pointer capitalize font-medium text-white hover:scale-105 duration-200'>
-                    Technologies
+                {pathname === '/about' && (
+                    <Link href="#technologies" className='px-4 cursor-pointer capitalize font-medium text-white hover:scale-105 duration-200'>
+                        Technologies
+                    </Link>
+                )}
+                <Link href="/about" className='px-4 cursor-pointer capitalize font-medium text-white hover:scale-105 duration-200'>
+                    About
                 </Link>
                 {session ? (
                     <>
-                        <Link href="/profile/client">Profile (Client)</Link>
-                        <Link href="/profile/server">Profile (Server)</Link>
-                        <Link href="/dashboard">Admin Dashboard</Link>
                         <SignOut />
                     </>
                 ) : (
-                    <Link href="/signin" className='px-4 cursor-pointer capitalize font-medium text-white hover:scale-105 duration-200'>SignIn</Link>
+                    <Link href="/registration" className='px-4 cursor-pointer capitalize font-medium text-white hover:scale-105 duration-200'>SignIn</Link>
                 )}
             </nav>
         </div>

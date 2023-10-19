@@ -7,7 +7,7 @@ const Header = async () => {
     const session = await getServerSession(authOptions);
 
     return (
-        <header className="fixed z-50 w-full h-16 flex justify-center items-center bg-[#050214] border-b-2 text-white">
+        <header className="fixed z-50 w-full h-16 flex justify-center items-center border-b-2 border-black bg-gradient-to-b from-red-500 to-blue-500 text-white">
             <ClientHeader session={session} />
         </header>
     );

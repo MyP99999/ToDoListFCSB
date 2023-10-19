@@ -9,7 +9,9 @@ const inter = Inter({ subsets: ['latin'] })
 export default function HomePage() {
   return (
     <main>
-      
+      <Home />
+      <Technologies />
+      <SocialLinks />
     </main>
   )
 }

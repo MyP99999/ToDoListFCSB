@@ -32,7 +32,7 @@ const Menu = () => {
         <div>
             {/* Open/Close button */}
             <div
-                className="cursor-pointer bg"
+                className="cursor-pointer bg hover:scale-110"
                 onClick={() => setOpen(!open)}
                 style={{
                     position: "fixed",
