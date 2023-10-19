@@ -25,9 +25,10 @@ const ClientHeader = ({ session }) => {
                         e.preventDefault(); // Prevent the default link click action
                         handleHomeClick();
                     }}
-                    className="cursor-pointer flex text-3xl font-poppins font-medium text-white hover:scale-105 duration-200"
+                    className="flex items-center cursor-pointer text-yellow-400 text-3xl font-poppins font-medium hover:scale-105 duration-200"
                 >
-                    FCSB
+                    <Image className='mb-1' src="/fcsb.png" alt="FCSB Logo" width={50} height={50} />
+                    FC FCSB SA
                 </a>
             );
         } else {
