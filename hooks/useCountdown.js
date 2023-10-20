@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 
 const useCountdown = (endDate) => {
-    const calculateTimeLeft = () => {
+  const calculateTimeLeft = () => {
     const difference = +new Date(endDate) - +new Date();
     let timeLeft = {};
+    let isOverdue = false;
 
     if (difference > 0) {
       timeLeft = {
@@ -12,22 +13,25 @@ const useCountdown = (endDate) => {
         minutes: Math.floor((difference / 1000 / 60) % 60),
         seconds: Math.floor((difference / 1000) % 60),
       };
+    } else {
+      isOverdue = true;
     }
 
-    return timeLeft;
+    return { timeLeft, isOverdue };
   };
 
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  const [state, setState] = useState(calculateTimeLeft());
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
+      setState(calculateTimeLeft());
     }, 1000);
 
     return () => clearInterval(timer);
   }, []);
 
-  return timeLeft;
+  return state; // Return both timeLeft and isOverdue
 };
+
 
 export default useCountdown;

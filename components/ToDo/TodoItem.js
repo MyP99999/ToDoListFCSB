@@ -56,7 +56,11 @@ const TodoItem = ({ todo, fetchData }) => {
         <tr className="text-center">
             <td className="py-2 px-4 border-b">{todo.title}</td>
             <td className="py-2 px-4 border-b">{new Date(todo.createdAt).toLocaleString()}</td>
-            <td className="py-2 px-4 border-b">{countdown.days}d {countdown.hours}h {countdown.minutes}m {/* {countdown.seconds}s */}</td>
+            <td className='border-b'>
+                <h4 className={`w-2/3 text-center mx-auto ${countdown.isOverdue ? 'bg-red-500' : 'bg-green-500 '}`}>
+                    {countdown.isOverdue ? "Overdue" : `${countdown.timeLeft.days}d ${countdown.timeLeft.hours}h ${countdown.timeLeft.minutes}m`}
+                </h4>
+            </td>
             <td className="py-2 px-4 border-b">{todo.status}</td>
             <td className="py-2 px-4 border-b">
                 <div className="flex items-center justify-center space-x-2">

@@ -65,7 +65,7 @@ const Addtodo = () => {
 
                 <div className="mb-4">
                     <label htmlFor="endDate" className="block text-sm font-medium text-gray-600">End Date</label>
-                    <input type="date" name="endDate" id="endDate" onChange={handleChange} value={formData.endDate} required className="mt-1 p-2 w-full border rounded-md" />
+                    <input type="datetime-local" name="endDate" id="endDate" onChange={handleChange} value={formData.endDate} required className="mt-1 p-2 w-full border rounded-md" />
                 </div>
 
                 <div className="mb-4">
