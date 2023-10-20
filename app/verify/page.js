@@ -5,7 +5,10 @@ const VerifyPage = async ({ searchParams: { token } }) => {
     const res = await verifyWithCredentials(token)
 
     return (
-        <h1>{res?.msg}</h1>
+        <div className='h-screen flex items-center'>
+
+            <h1>{res?.msg}</h1>
+        </div>
     )
 }
 
