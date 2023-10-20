@@ -3,8 +3,6 @@ import React from 'react'
 
 const EditPage = ({ params }) => {
   const { id } = params;
-  console.log("sad")
-  console.log(id)
 
   return (
     <div>

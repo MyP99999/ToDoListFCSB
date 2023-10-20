@@ -63,20 +63,20 @@ const Edittodo = ({ todoId }) => {
         e.preventDefault();
 
         try {
-            const res = await fetch('/api/todo', {
-                method: 'POST',
+            const res = await fetch(`/api/onetodo/${todoId}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    ...formData,
-                    userId: session?.user?._id
+                    newTitle: formData.title,
+                    newDescription: formData.description,
+                    newEndDate: formData.endDate,
+                    newStatus: formData.status,
                 })
 
             });
-
             if (res.ok) {
-                toast.success(`${title} has been added!`)
                 router.push('/')
             } else {
                 throw new Error('Failed to create food');
@@ -118,7 +118,7 @@ const Edittodo = ({ todoId }) => {
                 </div>
 
                 <div className="mt-6">
-                    <button type="submit" className="w-full p-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md">Add Todo</button>
+                    <button type="submit" className="w-full p-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md">Edit Todo</button>
                 </div>
             </form>
         </div>
