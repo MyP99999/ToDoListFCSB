@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react'
 
-const Header = () => {
+const Header = ({ onSearchChange }) => { // Receive the onSearchChange prop
     return (
         <div className='flex flex-col items-center gap-2 text-center p-2 bg-gray-50'>
             <Link
@@ -14,6 +14,7 @@ const Header = () => {
                 type="text"
                 className="p-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent w-1/2"
                 placeholder="Search todo..."
+                onChange={e => onSearchChange(e.target.value)} // Update the searchQuery state on input change
             />
         </div>
     )
