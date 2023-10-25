@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 export async function POST(request){
     const { email, password } = await request.json();
     connectDB()
-    const user = await User.findOne({ email }).select('-password');  // Exclude password
+    const user = await User.findOne({ email });  // Exclude password
     if(!user) throw new Error("Email does not existst!")
 
     const compare = await bcrypt.compare(password, user.password)
