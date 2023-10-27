@@ -9,7 +9,7 @@ const Addtodo = () => {
     const router = useRouter()
     const [formData, setFormData] = useState({
         title: '',
-        description: 'asd',
+        description: '',
         endDate: '',
         status: 'On Going',
     });
