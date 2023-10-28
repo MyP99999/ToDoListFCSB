@@ -9,7 +9,9 @@ export async function POST(request){
     connectDB()
     const user = await User.findOne({ email });  // Exclude password
     if(!user) throw new Error("Email does not existst!")
-
+    if (user?.provider !== 'credentials') {
+        throw new Error(`This account is signed in with ${user?.provider}!`)
+    }
     const compare = await bcrypt.compare(password, user.password)
     if(!compare) throw new Error("Password do not match!")
 
