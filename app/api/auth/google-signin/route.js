@@ -3,7 +3,7 @@ import { OAuth2Client } from 'google-auth-library';
 import User from "@/models/userModel";
 import connectDB from "@/utils/database";
 
-export default async (req, res) => {
+export async function POST(req, res){
     const client = new OAuth2Client(process.env.GOOGLE_ID);
     const { idToken } = req.body;
 
