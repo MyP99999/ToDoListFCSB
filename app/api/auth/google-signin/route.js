@@ -1,29 +1,30 @@
-// Inside your Next.js API route
+// Import required libraries and modules
 import { OAuth2Client } from 'google-auth-library';
 import User from "@/models/userModel";
 import connectDB from "@/utils/database";
+import { NextResponse } from "next/server";
 
-export async function POST(req, res){
-    const client = new OAuth2Client(process.env.GOOGLE_ID);
-    const { idToken } = req.body;
+export async function POST(request) {
+    const { idToken } = await request.json();  // Extract idToken from the request body
+    connectDB();  // Establish database connection
 
-    connectDB()
+    const client = new OAuth2Client(process.env.GOOGLE_ID);  // Create OAuth2 client
 
     try {
         const ticket = await client.verifyIdToken({
             idToken,
             audience: process.env.GOOGLE_ID,
         });
-        const { email, name, picture } = ticket.getPayload();
+        const { email, name, picture } = ticket.getPayload();  // Get user details from the token payload
 
-        let user = await User.findOne({ email });
+        let user = await User.findOne({ email });  // Check if user already exists
         if (!user) {
-            user = new User({ email, name, picture, provider: 'google' });
+            user = new User({ email, name, picture, provider: 'google' });  // Create new user if not found
             await user.save();
         }
 
-        res.status(200).json(user);
+        return NextResponse.json({ ...user._doc, _id: user._id.toString() }, { status: 201 });  // Return user data as JSON
     } catch (error) {
-        res.status(400).json({ error: 'Google auth failed' });
+        return NextResponse.json({ error: 'Google auth failed' }, { status: 400 });  // Handle errors
     }
-};
+}
