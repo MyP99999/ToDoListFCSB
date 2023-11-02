@@ -5,6 +5,9 @@ import Header from './Header';
 import { useRouter } from 'next/navigation';
 import { data } from 'autoprefixer';
 import { useSession } from 'next-auth/react';
+import { motion } from 'framer-motion'
+import { PulseLoader } from 'react-spinners'
+import Link from 'next/link';
 
 const getTodo = async (userId, page, limit = 9) => {
     try {
@@ -29,16 +32,18 @@ const Todo = () => {
     const { data: session } = useSession()
 
     const [todo, setTodo] = useState([]);
-    const [loading, setLoading] = useState(false); // added loading state
+    const [loading, setLoading] = useState(true); // added loading state
     const [newest, setNewest] = useState(true)
     const [searchQuery, setSearchQuery] = useState(''); // New state for search query
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
+    const [counter, setCounter] = useState(0)
 
     const filteredTodos = todo.filter(item => item.title.toLowerCase().includes(searchQuery.toLowerCase())); // Filter the todos based on search query
 
     const fetchData = async () => {
         if (session?.user?._id) {
+            setCounter((counter) => counter + 1)
             setLoading(true); // set loading to true before fetching data
             const limit = 9; // You can set this as a constant or make it dynamic
             const fetchedData = await getTodo(session.user._id, page, limit);
@@ -65,10 +70,70 @@ const Todo = () => {
         setPage(newPage);
     }
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.2 // This will stagger the animation of children
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, x: -150 },
+        visible: {
+            opacity: 1,
+            x: 0,
+            transition: {
+                type: 'spring', stiffness: 100
+            }
+        }
+    };
+
+    const buttonVariants = {
+        initial: {
+            scale: 0,
+            opacity: 0
+        },
+        animate: {
+            scale: 1,
+            opacity: 1,
+            transition: {
+                duration: 1
+            }
+        },
+        hover: {
+            scale: 1.1,
+            transition: {
+                duration: 0.3,
+                yoyo: Infinity
+            },
+        },
+        tap: {
+            scale: 0.95,
+        },
+    };
+
+
     return (
         <div className="flex flex-grow justify-center bg-gray-300 w-full min-h-screen">
             <div className="w-full lg:max-w-6xl overflow-x-auto mt-36">
-                <Header onSearchChange={setSearchQuery} /> {/* Pass the setSearchQuery to Header */}
+                <div className='flex flex-col items-center gap-2 text-center p-2 bg-gray-50'>
+                    <Link href="/addtodo" passHref>
+                        <motion.button
+                            className="ml-4 py-2 px-8 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-md hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+                            variants={buttonVariants}
+                            initial="initial"
+                            animate="animate"
+                            whileHover="hover"
+                            whileTap="tap"
+                        >
+                            Add Todo
+                        </motion.button>
+                    </Link>
+                    <Header onSearchChange={setSearchQuery} /> {/* Pass the setSearchQuery to Header */}
+                </div>
                 <table className="min-w-full bg-white shadow-md rounded-lg">
                     <thead className="bg-gray-800 text-white">
                         <tr>
@@ -81,34 +146,53 @@ const Todo = () => {
                             <th className="py-2 px-4 border-b"></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {loading ? (
-                            <tr>
-                                <td colSpan="5" className="text-center py-4">Loading...</td>
-                            </tr>
+                    <motion.tbody
+                        initial="hidden"
+                        animate={!loading ? "visible" : "hidden"}
+                        variants={containerVariants}
+                    >
+                        {loading && counter > 1 ? (
+                            <td colSpan="5" className="text-center py-4">
+                                <div>
+                                    <PulseLoader color="#d63636" />
+                                </div>
+                            </td>
                         ) : (
-                            filteredTodos?.map((item) => (
-                                <TodoItem fetchData={fetchData} key={item._id} todo={item} />
+                            filteredTodos.map((item, index) => (
+                                <motion.tr key={index} variants={itemVariants} className="text-center">
+                                    <TodoItem fetchData={fetchData} todo={item} />
+                                </motion.tr>
                             ))
                         )}
-                    </tbody>
+                    </motion.tbody>
                 </table>
+                {loading && counter < 2 && <PulseLoader className="text-center mx-auto pt-10" color="#d63636" />}
                 <div className="pagination-controls flex justify-center items-center mt-4">
-                    {Array.from({ length: totalPages }, (_, i) => (
-                        <button
-                            key={i + 1}
-                            onClick={() => setPage(i + 1)}
-                            disabled={page === i + 1}
-                            className={`mx-1 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none focus:shadow-outline ${page === i + 1 ? "bg-blue-300" : ""
-                                }`}
-                        >
-                            {i + 1}
-                        </button>
-                    ))}
+                    {Array.from({ length: totalPages }, (_, i) => {
+                        const currentPage = i + 1;
+                        const isCurrentPage = page === currentPage;
+                        return (
+                            <motion.button
+                                variants={buttonVariants}
+                                initial="initial"
+                                animate="animate"
+                                whileHover="hover"
+                                whileTap="tap"
+                                key={currentPage}
+                                onClick={() => setPage(currentPage)}
+                                disabled={isCurrentPage}
+                                className={`mx-1 px-4 py-2 text-sm font-medium text-white rounded-lg focus:outline-none focus:shadow-outline ${isCurrentPage
+                                        ? "bg-red-500 hover:bg-red-700" // Highlight current page with different color
+                                        : "bg-blue-500 hover:bg-blue-700"
+                                    }`}
+                            >
+                                {currentPage}
+                            </motion.button>
+                        );
+                    })}
                 </div>
-
             </div>
-        </div>
+        </div >
     );
 }
 

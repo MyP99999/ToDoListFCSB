@@ -1,7 +1,7 @@
 export function html({ url, text }) {
     return `
     <div style="max-width: 700px; margin: auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
-        <h2 style="text-align: center; text-transform: capitalize; color: teal;">Welcome to the L'David Site</h2>
+        <h2 style="text-align: center; text-transform: capitalize; color: teal;">Welcome to the FC FCSB SA to do site</h2>
         <p>
         Congratulations!
         </p>

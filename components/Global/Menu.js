@@ -65,7 +65,7 @@ const Menu = () => {
 
             {/* Menu */}
             {open && (
-                <div className="bg-[#050214] text-white font-poppins fixed inset-0 flex flex-col gap-8 items-center justify-center text-3xl z-10">
+                <div className="bg-gradient-to-b from-red-500 to-blue-500 text-white font-poppins fixed inset-0 flex flex-col gap-8 items-center justify-center text-3xl z-10">
                     {links.map((item) => (
                         <Link
                             href={item.url}

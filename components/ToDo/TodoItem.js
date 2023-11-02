@@ -53,16 +53,16 @@ const TodoItem = ({ todo, fetchData }) => {
 
 
     return (
-        <tr className="text-center">
-            <td className="py-2 px-4 border-b">{todo.title}</td>
-            <td className="py-2 px-4 border-b">{new Date(todo.createdAt).toLocaleString()}</td>
-            <td className='border-b'>
+        <>
+            <td className="py-2 px-4 border-b text-center">{todo.title}</td>
+            <td className="py-2 px-4 border-b text-center">{new Date(todo.createdAt).toLocaleString()}</td>
+            <td className='border-b text-center'>
                 <h4 className={`w-2/3 text-center mx-auto ${countdown.isOverdue ? 'bg-red-500' : 'bg-green-500 '}`}>
                     {countdown.isOverdue ? "Overdue" : `${countdown.timeLeft.days}d ${countdown.timeLeft.hours}h ${countdown.timeLeft.minutes}m`}
                 </h4>
             </td>
-            <td className="py-2 px-4 border-b">{todo.status}</td>
-            <td className="py-2 px-4 border-b">
+            <td className="py-2 px-4 border-b text-center">{todo.status}</td>
+            <td className="py-2 px-4 border-b text-center">
                 <div className="flex items-center justify-center space-x-2">
                     <button onClick={() => setIsModalOpen(true)} className="bg-yellow-500 p-2 rounded-full">Vezi</button>
                     <button className="bg-yellow-500 p-2 rounded-full">
@@ -74,7 +74,7 @@ const TodoItem = ({ todo, fetchData }) => {
             </td>
             {isModalOpen && <TodoModal todo={todo} countdown={countdown} onClose={() => setIsModalOpen(false)} />}
 
-        </tr>
+        </>
     );
 }
 
