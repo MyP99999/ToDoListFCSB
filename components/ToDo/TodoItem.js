@@ -3,6 +3,8 @@ import useCountdown from '@/hooks/useCountdown';
 import React, { useState } from 'react';
 import TodoModal from './TodoModal';
 import Link from 'next/link';
+import { motion } from 'framer-motion'
+
 
 const TodoItem = ({ todo, fetchData }) => {
     const countdown = useCountdown(todo.endDate);
@@ -51,25 +53,85 @@ const TodoItem = ({ todo, fetchData }) => {
         }
     };
 
+    const buttonVariants = {
+        initial: {
+            scale: 0,
+            opacity: 0
+        },
+        animate: {
+            scale: 1,
+            opacity: 1,
+            transition: {
+                duration: 1
+            }
+        },
+        hover: {
+            scale: 1.1,
+            transition: {
+                duration: 0.3,
+                yoyo: Infinity
+            },
+        },
+        tap: {
+            scale: 0.95,
+        },
+    };
 
     return (
         <>
             <td className="py-2 px-4 border-b text-center">{todo.title}</td>
             <td className="py-2 px-4 border-b text-center">{new Date(todo.createdAt).toLocaleString()}</td>
-            <td className='border-b text-center'>
-                <h4 className={`w-2/3 text-center mx-auto ${countdown.isOverdue ? 'bg-red-500' : 'bg-green-500 '}`}>
+            <td className='py-2 px-4 border-b text-center hidden md:table-cell overflow-hidden'>
+                <h4 className={`w-2/3 mx-auto ${countdown.isOverdue ? 'bg-red-500' : 'bg-green-500'} rounded-full text-white`}>
                     {countdown.isOverdue ? "Overdue" : `${countdown.timeLeft.days}d ${countdown.timeLeft.hours}h ${countdown.timeLeft.minutes}m`}
                 </h4>
             </td>
+
             <td className="py-2 px-4 border-b text-center">{todo.status}</td>
             <td className="py-2 px-4 border-b text-center">
                 <div className="flex items-center justify-center space-x-2">
-                    <button onClick={() => setIsModalOpen(true)} className="bg-yellow-500 p-2 rounded-full">Vezi</button>
-                    <button className="bg-yellow-500 p-2 rounded-full">
+                    <motion.button
+                        variants={buttonVariants}
+                        initial="initial"
+                        animate="animate"
+                        whileHover="hover"
+                        whileTap="tap"
+                        onClick={() => setIsModalOpen(true)}
+                        className="bg-yellow-500 p-2 rounded-full">
+                        Vezi
+                    </motion.button>
+                    <motion.button
+                        variants={buttonVariants}
+                        initial="initial"
+                        animate="animate"
+                        whileHover="hover"
+                        whileTap="tap"
+                        className="bg-yellow-500 p-2 rounded-full"
+                    >
                         <Link href={`/edittodo/${todo?._id}`}>E</Link>
-                    </button>
-                    <button onClick={handleMarkAsDone} className="bg-green-400 p-2 rounded-full">/</button>
-                    <button onClick={handleDelete} className="bg-red-500 p-2 rounded-full">X</button>
+                    </motion.button>
+                    <motion.button
+                        variants={buttonVariants}
+                        initial="initial"
+                        animate="animate"
+                        whileHover="hover"
+                        whileTap="tap"
+                        onClick={handleMarkAsDone}
+                        className="bg-green-400 p-2 rounded-full"
+                    >
+                        /
+                    </motion.button>
+                    <motion.button
+                        variants={buttonVariants}
+                        initial="initial"
+                        animate="animate"
+                        whileHover="hover"
+                        whileTap="tap"
+                        onClick={handleDelete}
+                        className="bg-red-500 p-2 rounded-full"
+                    >
+                        X
+                    </motion.button>
                 </div>
             </td>
             {isModalOpen && <TodoModal todo={todo} countdown={countdown} onClose={() => setIsModalOpen(false)} />}

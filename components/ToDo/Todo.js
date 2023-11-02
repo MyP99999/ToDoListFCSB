@@ -117,33 +117,33 @@ const Todo = () => {
 
 
     return (
-        <div className="flex flex-grow justify-center bg-gray-300 w-full min-h-screen">
-            <div className="w-full lg:max-w-6xl overflow-x-auto mt-36">
+        <div class="flex flex-grow justify-center bg-gray-300 w-full min-h-screen">
+            <div class="w-full lg:max-w-6xl overflow-auto mt-36">
                 <div className='flex flex-col items-center gap-2 text-center p-2 bg-gray-50'>
-                    <Link href="/addtodo" passHref>
-                        <motion.button
-                            className="ml-4 py-2 px-8 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-md hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
-                            variants={buttonVariants}
-                            initial="initial"
-                            animate="animate"
-                            whileHover="hover"
-                            whileTap="tap"
-                        >
-                            Add Todo
-                        </motion.button>
-                    </Link>
-                    <Header onSearchChange={setSearchQuery} /> {/* Pass the setSearchQuery to Header */}
-                </div>
+                <Link href="/addtodo" passHref>
+                    <motion.button
+                        className="ml-4 py-2 px-8 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-md hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+                        variants={buttonVariants}
+                        initial="initial"
+                        animate="animate"
+                        whileHover="hover"
+                        whileTap="tap"
+                    >
+                        Add Todo
+                    </motion.button>
+                </Link>
+                <Header onSearchChange={setSearchQuery} /> {/* Pass the setSearchQuery to Header */}
+            </div>
                 <table className="min-w-full bg-white shadow-md rounded-lg">
                     <thead className="bg-gray-800 text-white">
-                        <tr>
-                            <th className="py-2 px-4 border-b">Titlu</th>
-                            <th className="py-2 px-4 border-b cursor-pointer" onClick={handleCreated}>
+                        <tr className='border-b'>
+                            <th className="py-2 px-4">Titlu</th>
+                            <th className="py-2 px-4 cursor-pointer" onClick={handleCreated}>
                                 Creata La <span>{!newest ? '↓' : '↑'}</span>
                             </th>
-                            <th className="py-2 px-4 border-b">Countdown</th>
-                            <th className="py-2 px-4 border-b">Status</th>
-                            <th className="py-2 px-4 border-b"></th>
+                            <th className="py-2 px-4 hidden md:block">Countdown</th>
+                            <th className="py-2 px-4">Status</th>
+                            <th className="py-2 px-4"></th>
                         </tr>
                     </thead>
                     <motion.tbody
@@ -182,8 +182,8 @@ const Todo = () => {
                                 onClick={() => setPage(currentPage)}
                                 disabled={isCurrentPage}
                                 className={`mx-1 px-4 py-2 text-sm font-medium text-white rounded-lg focus:outline-none focus:shadow-outline ${isCurrentPage
-                                        ? "bg-red-500 hover:bg-red-700" // Highlight current page with different color
-                                        : "bg-blue-500 hover:bg-blue-700"
+                                    ? "bg-red-500 hover:bg-red-700" // Highlight current page with different color
+                                    : "bg-blue-500 hover:bg-blue-700"
                                     }`}
                             >
                                 {currentPage}

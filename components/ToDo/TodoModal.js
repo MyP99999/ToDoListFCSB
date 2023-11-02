@@ -12,7 +12,7 @@ const TodoModal = ({ todo, countdown, onClose }) => {
                 </p>                <p><strong>Created At:</strong> {new Date(todo.createdAt).toLocaleString()}</p>
                 <p><strong>End Date:</strong> {new Date(todo.endDate).toLocaleString()}</p>
                 <p><strong>Status:</strong> {todo.status}</p>
-                <button className="mt-4 p-2 bg-red-500 text-white rounded" onClick={onClose}>Close</button>
+                <button className="mt-4 p-2 bg-red-500 text-white rounded hover:scale-110 hover:bg-red-700" onClick={onClose}>Close</button>
             </div>
         </div>
     );
