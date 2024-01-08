@@ -115,25 +115,39 @@ const Todo = () => {
         },
     };
 
+    const sliderVariants = {
+        initial: {
+            x: 0,
+        },
+        animate: {
+            x: "-220%",
+            transition: {
+                repeat: Infinity,
+                repeatType: "mirror",
+                duration: 15,
+            }
+        }
+    }
+
 
     return (
-        <div class="flex flex-grow justify-center bg-gray-300 w-full min-h-screen">
-            <div class="w-full lg:max-w-6xl overflow-auto mt-36">
+        <div class="flex flex-grow justify-center overflow-hidden bg-gray-300 w-full min-h-screen relative">
+            <div class="w-full lg:max-w-6xl overflow-auto mt-36 z-10">
                 <div className='flex flex-col items-center gap-2 text-center p-2 bg-gray-50'>
-                <Link href="/addtodo" passHref>
-                    <motion.button
-                        className="ml-4 py-2 px-8 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-md hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
-                        variants={buttonVariants}
-                        initial="initial"
-                        animate="animate"
-                        whileHover="hover"
-                        whileTap="tap"
-                    >
-                        Add Todo
-                    </motion.button>
-                </Link>
-                <Header onSearchChange={setSearchQuery} /> {/* Pass the setSearchQuery to Header */}
-            </div>
+                    <Link href="/addtodo" passHref>
+                        <motion.button
+                            className="ml-4 py-2 px-8 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-md hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+                            variants={buttonVariants}
+                            initial="initial"
+                            animate="animate"
+                            whileHover="hover"
+                            whileTap="tap"
+                        >
+                            Add Todo
+                        </motion.button>
+                    </Link>
+                    <Header onSearchChange={setSearchQuery} /> {/* Pass the setSearchQuery to Header */}
+                </div>
                 <table className="min-w-full bg-white shadow-md rounded-lg">
                     <thead className="bg-gray-800 text-white">
                         <tr className='border-b'>
@@ -157,6 +171,12 @@ const Todo = () => {
                                     <PulseLoader color="#d63636" />
                                 </div>
                             </td>
+                        ) : filteredTodos.length === 0 ? (
+                            <td colSpan="5" className="text-center py-4">
+                                <div className="text-gray-600">
+                                    Nu ai nimic de facut!
+                                </div>
+                            </td>
                         ) : (
                             filteredTodos.map((item, index) => (
                                 <motion.tr key={index} variants={itemVariants} className="text-center">
@@ -165,6 +185,7 @@ const Todo = () => {
                             ))
                         )}
                     </motion.tbody>
+
                 </table>
                 {loading && counter < 2 && <PulseLoader className="text-center mx-auto pt-10" color="#d63636" />}
                 <div className="pagination-controls flex justify-center items-center mt-4">
@@ -192,6 +213,9 @@ const Todo = () => {
                     })}
                 </div>
             </div>
+            <motion.div className="absolute text-[50vh] bottom-[-120px] whitespace-nowrap text-[#f7e0356c] w-1/2 font-bold pointer-events-none" variants={sliderVariants} initial="initial" animate="animate">
+                FC FCSB SA
+            </motion.div>
         </div >
     );
 }

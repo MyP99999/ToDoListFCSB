@@ -7,18 +7,23 @@ import Image from 'next/image';
 const data = [
     {
         id: 1,
-        title: "Always fresh & always crispy & always hot",
-        image: "/slide1.png",
+        title: "Echipa Superioara",
+        image: "/fcsb4.jpg",
     },
     {
         id: 2,
-        title: "We deliver your order wherever you are in NY",
-        image: "/slide2.png",
+        title: "Echipa Superioara",
+        image: "/fcsb2.jpg",
     },
     {
         id: 3,
-        title: "The best pizza to share with your family",
-        image: "/slide3.jpg",
+        title: "Echipa Superioara",
+        image: "/fcsb3.jpg",
+    },
+    {
+        id: 4,
+        title: "Echipa Superioara",
+        image: "/fcsb5.jpg",
     },
 ];
 

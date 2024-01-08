@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import TodoModal from './TodoModal';
 import Link from 'next/link';
 import { motion } from 'framer-motion'
+import Image from 'next/image';
 
 
 const TodoItem = ({ todo, fetchData }) => {
@@ -106,9 +107,10 @@ const TodoItem = ({ todo, fetchData }) => {
                         animate="animate"
                         whileHover="hover"
                         whileTap="tap"
-                        className="bg-yellow-500 p-2 rounded-full"
                     >
-                        <Link href={`/edittodo/${todo?._id}`}>E</Link>
+                        <Link href={`/edittodo/${todo?._id}`}>
+                            <Image src="/edit-button.png" alt="bin" width={35} height={35} />
+                        </Link>
                     </motion.button>
                     <motion.button
                         variants={buttonVariants}
@@ -117,9 +119,8 @@ const TodoItem = ({ todo, fetchData }) => {
                         whileHover="hover"
                         whileTap="tap"
                         onClick={handleMarkAsDone}
-                        className="bg-green-400 p-2 rounded-full"
                     >
-                        /
+                        <Image src="/check-button.png" alt="bin" width={35} height={35} />
                     </motion.button>
                     <motion.button
                         variants={buttonVariants}
@@ -128,9 +129,8 @@ const TodoItem = ({ todo, fetchData }) => {
                         whileHover="hover"
                         whileTap="tap"
                         onClick={handleDelete}
-                        className="bg-red-500 p-2 rounded-full"
                     >
-                        X
+                        <Image src="/bin.png" alt="bin" width={35} height={35} />
                     </motion.button>
                 </div>
             </td>

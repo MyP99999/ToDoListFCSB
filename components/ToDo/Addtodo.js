@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 
 const Addtodo = () => {
     const { data: session } = useSession()
+    console.log(session)
+
     const router = useRouter()
     const [formData, setFormData] = useState({
         title: '',
